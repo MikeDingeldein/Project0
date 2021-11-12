@@ -114,10 +114,10 @@ public class BankController {
 		app.put("/clients/{id}", editClientById);
 		app.delete("/clients/{id}", deleteClientById);
 		app.post("/clients/{id}/accounts", createNewAccount);
-//		app.get("/clients/{id}/accounts", getAllAccountsByClientId);
+//		app.get("/clients/{id}/accounts", getAllAccountsByClientId); //moved to Account Controller
 //		app.get("/clients/{id}/accounts", getAccountByClientIdAndBalance); not needed
-//		app.get("/clients/{id}/accounts/{accountId}", getAccountByClientIdAndAcountId);
-//		app.put("/clients/{id}/accounts/{accountId}", editAccountByClientIdAndAcountId);
+//		app.get("/clients/{id}/accounts/{accountId}", getAccountByClientIdAndAcountId); //moved to Account Controller
+//		app.put("/clients/{id}/accounts/{accountId}", editAccountByClientIdAndAcountId); //moved to AccountController
 //		app.delete("/clients/{id}/accounts/{accountId}", deleteAcountByClientIdAndAcountId);
 
 	}

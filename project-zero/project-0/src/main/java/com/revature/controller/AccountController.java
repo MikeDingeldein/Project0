@@ -2,7 +2,10 @@ package com.revature.controller;
 
 import java.util.List;
 
+import com.revature.dto.AddOrUpdateAccountDTO;
+import com.revature.dto.AddOrUpdateClientDTO;
 import com.revature.model.Account;
+import com.revature.model.Client;
 import com.revature.service.AccountService;
 
 import io.javalin.Javalin;
@@ -24,18 +27,44 @@ public class AccountController {
 
 	};
 
-//	private Handler getAllAccountsByClientId = (ctx) -> {
+	private Handler getAccountByClientIdAndAcountId = (ctx) -> {
+		String clientId = ctx.pathParam("id");
+		String accountId = ctx.pathParam("accountId");
+		List<Account> account = this.accountService.getAccountByClientIdAndAcountId(clientId, accountId);
+		ctx.json(account);
+
+	};
+
+	private Handler editAccountByClientIdAndAcountId = (ctx) -> {
+		String clientId = ctx.pathParam("id");
+		String accountId = ctx.pathParam("accountId");
+		AddOrUpdateAccountDTO dto = ctx.bodyAsClass(AddOrUpdateAccountDTO.class);
+		Account account = this.accountService.editAccountByClientIdAndAcountId(clientId, accountId,
+				dto.getAccountType(), dto.getAccountBalance());
+		ctx.json(account);
+
+	};
+	
+	private Handler deleteAcountByClientIdAndAcountId = (ctx) -> {// very unsure
+		String id = ctx.pathParam("id");
+		String aid = ctx.pathParam("accountId");
+		this.accountService.deleteAcountByClientIdAndAcountId(id, aid);
+	};
+//	
+//	private Handler editClientById = (ctx) -> {
 //		String id = ctx.pathParam("id");
-//		String amountGreaterThan = ctx.queryParam("amountGreaterThan");
-//		String amountLessThan = ctx.queryParam("amountLessThan");
-//
-//		// String aid = ctx.pathParam("aid");
-//		List<Account> a = this.accountService.getAllAccountsByClientId(id, ctx);
-//		ctx.json(a);
+//		AddOrUpdateClientDTO dto = ctx.bodyAsClass(AddOrUpdateClientDTO.class);
+//		Client c = this.bankService.editClientById(id, dto.getFirstName(), dto.getLastName());
+//		ctx.json(c);
 //	};
+
+
 
 	public void registerEndPoints(Javalin app) {
 		app.get("/clients/{id}/accounts", getAllAccountsByClientId);
 //		app.get("/clients/{id}/accounts", getAllAccountsByClientId);
+		app.get("/clients/{id}/accounts/{accountId}", getAccountByClientIdAndAcountId);
+		app.put("/clients/{id}/accounts/{accountId}", editAccountByClientIdAndAcountId);
+		app.delete("/clients/{id}/accounts/{accountId}", deleteAcountByClientIdAndAcountId);
 	}
 }

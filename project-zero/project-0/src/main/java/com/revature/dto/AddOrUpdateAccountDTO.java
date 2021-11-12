@@ -5,7 +5,7 @@ import java.util.Objects;
 public class AddOrUpdateAccountDTO {
 
 	private int clientId;
-//	private int accountId;
+	private int accountId;
 	private String accountType;
 	private double accountBalance;
 
@@ -20,6 +20,13 @@ public class AddOrUpdateAccountDTO {
 		this.accountBalance = accountBalance;
 	}
 
+	public AddOrUpdateAccountDTO(int clientId, int accountId, String accountType, double accountBalance) { //int accountId,
+		this.clientId = clientId;
+		this.accountId = accountId;
+		this.accountType = accountType;
+		this.accountBalance = accountBalance;
+	}
+		
 	public int getClientId() {
 		return clientId;
 	}
@@ -27,14 +34,14 @@ public class AddOrUpdateAccountDTO {
 	public void setClientId(int clientId) {
 		this.clientId = clientId;
 	}
-//
-//	public int getAccountId() {
-//		return accountId;
-//	}
-//
-//	public void setAccountId(int accountId) {
-//		this.accountId = accountId;
-//	}
+
+	public int getAccountId() {
+		return accountId;
+	}
+
+	public void setAccountId(int accountId) {
+		this.accountId = accountId;
+	}
 
 	public String getAccountType() {
 		return accountType;
@@ -54,7 +61,7 @@ public class AddOrUpdateAccountDTO {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(accountBalance, accountType, clientId);
+		return Objects.hash(accountBalance, accountId, accountType, clientId);
 	}
 
 	@Override
@@ -67,15 +74,15 @@ public class AddOrUpdateAccountDTO {
 			return false;
 		AddOrUpdateAccountDTO other = (AddOrUpdateAccountDTO) obj;
 		return Double.doubleToLongBits(accountBalance) == Double.doubleToLongBits(other.accountBalance)
-				&& Objects.equals(accountType, other.accountType) && clientId == other.clientId;
+				&& accountId == other.accountId && Objects.equals(accountType, other.accountType)
+				&& clientId == other.clientId;
 	}
 
 	@Override
 	public String toString() {
-		return "AddOrUpdateAccountDTO [clientId=" + clientId + ", accountType=" + accountType + ", accountBalance="
-				+ accountBalance + "]";
+		return "AddOrUpdateAccountDTO [clientId=" + clientId + ", accountId=" + accountId + ", accountType="
+				+ accountType + ", accountBalance=" + accountBalance + "]";
 	}
 
-
-
 }
+
